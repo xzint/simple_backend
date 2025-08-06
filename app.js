@@ -4,7 +4,7 @@ const fs = require('fs').promises
 const path = require('path')
 
 const app = express()
-const PORT = 5000
+const PORT = 8080
 const DELAY_MS = 1000 // Затримка в мілісекундах
 const PRODUCTS_FILE = path.join(__dirname, 'products.json')
 
