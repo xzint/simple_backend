@@ -4,7 +4,7 @@ const fs = require('fs').promises
 const path = require('path')
 
 const app = express()
-const PORT = 8080
+const PORT = 5000
 const DELAY_MS = 1000 // Затримка в мілісекундах
 const PRODUCTS_FILE = path.join(__dirname, 'products.json')
 
@@ -41,6 +41,20 @@ async function writeProducts(products) {
 app.get('/api/products', async (req, res) => {
   const products = await readProducts()
   res.json(products)
+})
+
+app.get('/api/categories', async (req, res) => {
+  const products = await readProducts()
+  const categories = Array.from(new Set(products.map(p => p.category)));
+  res.json(categories)
+})
+app.get('/api/categories/:categoryName', async (req, res) => {
+  const products = await readProducts()
+  const categoryName = req.params.categoryName;
+  console.log(categoryName);
+  const filteredProducts = products.filter(p => p.category === categoryName);
+  console.log(filteredProducts);
+  res.json(filteredProducts)
 })
 
 // Отримання продукту за ID (НОВИЙ МАРШРУТ)
